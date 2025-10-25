@@ -11,7 +11,7 @@ FOR SELECT
 USING (
   is_public = true 
   OR created_by IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
@@ -21,7 +21,7 @@ ON exercises
 FOR INSERT
 WITH CHECK (
   created_by IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
   OR created_by IS NULL
 );
@@ -32,12 +32,12 @@ ON exercises
 FOR UPDATE
 USING (
   created_by IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 )
 WITH CHECK (
   created_by IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
@@ -47,9 +47,10 @@ ON exercises
 FOR DELETE
 USING (
   created_by IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
 COMMIT;
+
 

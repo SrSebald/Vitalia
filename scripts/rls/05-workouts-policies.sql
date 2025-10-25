@@ -9,7 +9,7 @@ ON workouts
 FOR SELECT
 USING (
   user_id IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
@@ -19,7 +19,7 @@ ON workouts
 FOR INSERT
 WITH CHECK (
   user_id IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
@@ -29,12 +29,12 @@ ON workouts
 FOR UPDATE
 USING (
   user_id IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 )
 WITH CHECK (
   user_id IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
@@ -44,9 +44,10 @@ ON workouts
 FOR DELETE
 USING (
   user_id IN (
-    SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+    SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
   )
 );
 
 COMMIT;
+
 

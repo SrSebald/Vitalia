@@ -11,7 +11,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:setup": "tsx scripts/run-schema.ts",
-    "db:rls": "tsx scripts/apply-rls.ts"
+    "db:rls": "tsx scripts/apply-rls.ts",
+    "test:rls": "tsx scripts/test-rls.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",

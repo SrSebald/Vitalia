@@ -11,7 +11,7 @@ USING (
   workout_id IN (
     SELECT id FROM workouts 
     WHERE user_id IN (
-      SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+      SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
     )
   )
 );
@@ -24,7 +24,7 @@ WITH CHECK (
   workout_id IN (
     SELECT id FROM workouts 
     WHERE user_id IN (
-      SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+      SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
     )
   )
 );
@@ -37,7 +37,7 @@ USING (
   workout_id IN (
     SELECT id FROM workouts 
     WHERE user_id IN (
-      SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+      SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
     )
   )
 )
@@ -45,7 +45,7 @@ WITH CHECK (
   workout_id IN (
     SELECT id FROM workouts 
     WHERE user_id IN (
-      SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+      SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
     )
   )
 );
@@ -58,10 +58,11 @@ USING (
   workout_id IN (
     SELECT id FROM workouts 
     WHERE user_id IN (
-      SELECT id FROM profiles WHERE auth_user_id = auth.uid()
+      SELECT id FROM profiles WHERE auth_user_id = public.get_current_user_id()
     )
   )
 );
 
 COMMIT;
+
 
