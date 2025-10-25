@@ -1,6 +1,10 @@
+import { config } from 'dotenv';
+import { resolve } from 'path';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
+// Load environment variables from .env.local
+config({ path: resolve(process.cwd(), '.env.local') });
 declare global {
   // eslint-disable-next-line no-var
   var __drizzleDb__: ReturnType<typeof drizzle> | undefined;

@@ -14,18 +14,10 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 
-// Supabase's auth.users table reference (exists in auth schema)
-// We don't include it in migrations since it's managed by Supabase
-// const auth = pgSchema('auth');
-// export const authUsers = auth.table('users', {
-//   id: uuid('id').primaryKey(),
-// });
-
 export const profiles = pgTable(
   'profiles',
   {
     id: uuid('id').primaryKey(),
-    // References Supabase's auth.users(id) - the FK will be created via SQL
     authUserId: uuid('auth_user_id').notNull(),
     fullName: text('full_name'),
     username: text('username'),
