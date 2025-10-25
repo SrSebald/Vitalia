@@ -1,8 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vitalia
 
-## Getting Started
+## Instalando el proyecto
 
-First, run the development server:
+Ve al sitio web de Bun e instala la versión según tu sistema operativo: [bun.com](https://bun.com/)
 
 ```bash
 npm run dev
