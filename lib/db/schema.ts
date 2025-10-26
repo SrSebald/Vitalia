@@ -21,11 +21,30 @@ export const profiles = pgTable(
     authUserId: uuid('auth_user_id').notNull(),
     fullName: text('full_name'),
     username: text('username'),
+
+    // Información Física
     heightCm: numeric('height_cm', { precision: 5, scale: 2 }),
     weightKg: numeric('weight_kg', { precision: 5, scale: 2 }),
     dateOfBirth: date('date_of_birth'),
+    bodyType: text('body_type'), // Ectomorfo, Mesomorfo, Endomorfo
+
+    // Metas y Motivación
     fitnessGoals: text('fitness_goals'),
+    mainGoal: text('main_goal'), // Meta principal específica
+    goalDeadline: date('goal_deadline'),
+    motivation: text('motivation'), // Por qué quieren alcanzar su meta
+
+    // Actividad y Estilo de Vida
     activityLevel: text('activity_level'),
+
+    // Salud y Restricciones
+    healthConditions: text('health_conditions'), // Historial médico relevante
+    allergies: text('allergies').array(), // Array de alergias
+
+    // Preferencias Nutricionales
+    dietType: text('diet_type'), // Vegetariana, Cetogénica, etc.
+    mealSchedule: text('meal_schedule'), // Horario de comidas preferido
+
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
@@ -158,5 +177,32 @@ export const progressPhotos = pgTable(
   },
   (table) => ({
     userIdx: index('progress_photos_user_id_idx').on(table.userId),
+  }),
+);
+
+export const aiGeneratedWorkouts = pgTable(
+  'ai_generated_workouts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => profiles.id, { onDelete: 'cascade' }),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    goals: text('goals').array().notNull(), // Array de objetivos: ["Fuerza", "Hipertrofia"]
+    muscleGroups: text('muscle_groups').array().notNull(), // Array de grupos: ["Pecho", "Brazos"]
+    duration: text('duration').notNull(), // "45 min"
+    energyLevel: text('energy_level').notNull(), // "Alto", "Medio", "Bajo"
+    estimatedDuration: text('estimated_duration').notNull(), // "45 minutos"
+    workoutData: text('workout_data').notNull(), // JSON stringificado del workout completo
+    additionalNotes: text('additional_notes'), // Comentarios del usuario
+    completedExercises: integer('completed_exercises').array().default([]), // Índices de ejercicios completados
+    completedAt: timestamp('completed_at', { withTimezone: true }), // Null si no se ha completado
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdx: index('ai_generated_workouts_user_id_idx').on(table.userId),
+    createdAtIdx: index('ai_generated_workouts_created_at_idx').on(table.createdAt),
   }),
 );

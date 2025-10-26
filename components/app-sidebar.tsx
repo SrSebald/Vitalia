@@ -42,16 +42,16 @@ const getData = (user: any) => ({
       isActive: true,
       items: [
         {
-          title: "My Workouts",
+          title: "AI Trainer",
           url: "/dashboard/workouts",
+        },
+        {
+          title: "My Workouts",
+          url: "/dashboard/my-workouts",
         },
         {
           title: "Exercises",
           url: "/dashboard/exercises",
-        },
-        {
-          title: "Log Workout",
-          url: "/dashboard/workouts/new",
         },
       ],
     },
@@ -61,8 +61,16 @@ const getData = (user: any) => ({
       icon: Apple,
       items: [
         {
-          title: "Food Log",
+          title: "Plan del Día",
           url: "/dashboard/nutrition",
+        },
+        {
+          title: "Chat con IA",
+          url: "/dashboard/nutrition/chat",
+        },
+        {
+          title: "Food Log",
+          url: "/dashboard/nutrition/log",
         },
         {
           title: "Meal Plans",
@@ -95,12 +103,8 @@ const getData = (user: any) => ({
       icon: Settings2,
       items: [
         {
-          title: "Profile",
-          url: "/dashboard/settings/profile",
-        },
-        {
-          title: "Preferences",
-          url: "/dashboard/settings/preferences",
+          title: "Configuración",
+          url: "/dashboard/settings",
         },
       ],
     },
