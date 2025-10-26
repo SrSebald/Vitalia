@@ -1,0 +1,1 @@
+ALTER TABLE "ai_generated_workouts" ADD COLUMN "completed_exercises" integer[] DEFAULT '{}';
