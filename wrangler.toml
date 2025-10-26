@@ -1,0 +1,25 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "vitalia"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = ".vercel/output/static"
+
+# Compatibility flags for Next.js on Cloudflare Pages
+compatibility_flags = ["nodejs_compat"]
+
+# Node.js version (for builds)
+node_compat = true
+
+# Environment variables for production
+# Note: Sensitive values should be set in Cloudflare dashboard, not here
+[vars]
+NODE_ENV = "production"
+
+# Optional: Configure custom domains
+# [env.production]
+# routes = [
+#   { pattern = "vitalia.com", custom_domain = true }
+# ]
+
+# Development environment (for wrangler pages dev)
+[env.development]
+

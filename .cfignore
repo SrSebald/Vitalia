@@ -1,0 +1,29 @@
+# Cloudflare Pages ignore file
+# Files and directories that should not be uploaded to Cloudflare
+
+node_modules/
+.next/
+.git/
+.env*
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__/
+
+# Development files
+tsconfig.tsbuildinfo
+.vscode/
+.idea/
+
+# Build artifacts (except .vercel/output/static which is needed)
+.vercel/
+!.vercel/output/static
+

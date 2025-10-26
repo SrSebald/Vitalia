@@ -2,10 +2,10 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
- * Middleware to protect routes and manage authentication
+ * Proxy to protect routes and manage authentication
  * This runs on every request before reaching your application
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -41,9 +41,24 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isLoginPage = request.nextUrl.pathname === '/login';
-  const isSignupPage = request.nextUrl.pathname === '/signup';
-  const isAuthCallback = request.nextUrl.pathname === '/auth/callback';
+  const pathname = request.nextUrl.pathname;
+  const isRootPage = pathname === '/';
+  const isLoginPage = pathname === '/login';
+  const isSignupPage = pathname === '/signup';
+  const isAuthCallback = pathname === '/auth/callback';
+
+  // Handle root path (/) based on authentication status
+  if (isRootPage) {
+    const url = request.nextUrl.clone();
+    if (user) {
+      // If authenticated, redirect to dashboard
+      url.pathname = '/dashboard';
+    } else {
+      // If not authenticated, redirect to login
+      url.pathname = '/login';
+    }
+    return NextResponse.redirect(url);
+  }
 
   // Redirect /signup to /login since they use the same component
   if (isSignupPage) {
@@ -94,3 +109,4 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
+
